@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Calculo da média do Aluno</title>
+        <script lang ="Javascript">
+
+            function calc(){
+
+                var n1,n2,n3,n4,soma,msg;
+
+                n1=parseFloat(document.getElementById("n1").value);     
+                n2=parseFloat(document.getElementById("n2").value);
+                n3=parseFloat(document.getElementById("n3").value);
+                n4=parseFloat(document.getElementById("n4").value);  
+
+                soma=(n1+n2+n3+n4)/4;
+
+                if(soma <7){
+                    msg = "Reprovado";
+                    document.getElementById("res").value = soma;
+                    document.getElementById("status").value = msg;
+                    
+                }
+                if(soma >6){
+                    msg = "Aprovado";
+                    document.getElementById("res").value = soma;
+                    document.getElementById("status").value = msg;
+                }
+            }
+        </script>
+</head>
+<body>
+	<h1>Formulário</h1>
+	        <form method="post" action="/metodos">
+                Nota 1:<input type="text" id="n1"><br>
+                Nota 2:<input type="text" id="n2"><br>
+                Nota 3:<input type="text" id="n3"><br>
+                Nota 4:<input type="text" id="n4"><br>
+                <input type="button" id="btnCalc" onclick="calc();"value = "Calcular"><br>
+                Nota Final:<input type="text" id="res"><br>
+                Status: <input type="text" id="status"><br>
+                <button>Salvar Informações</button>
+            </form>
+</body>
+</html>
