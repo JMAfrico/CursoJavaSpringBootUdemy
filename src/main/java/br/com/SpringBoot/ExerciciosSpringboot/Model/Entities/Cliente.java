@@ -1,4 +1,4 @@
-package br.com.SpringBoot.ExerciciosSpringboot.Models;
+package br.com.SpringBoot.ExerciciosSpringboot.Model.Entities;
 
 public class Cliente {
 

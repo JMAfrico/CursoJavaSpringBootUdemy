@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.SpringBoot.ExerciciosSpringboot.Models.Cliente;
+import br.com.SpringBoot.ExerciciosSpringboot.Model.Entities.Cliente;
 
 @RestController//informo que a classe vai ser a controladora onde manipula as requisicoes
 @RequestMapping("/clientes") // a requisicao é acessada por essa URL
