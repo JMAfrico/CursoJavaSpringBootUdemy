@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,33 +21,26 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoRepository produtorepository;
 	
-	//COM MENOS CÓDIGOS
+	//salvando no banco com menos códigos
 	@PostMapping("/novo")
 	public @ResponseBody Produto novoProduto(@Valid Produto produto) {		
 		produtorepository.save(produto);
 		return produto;
-		//total fica nulo
+	}
+	
+	//Lista todos os produtos
+	@GetMapping("/listar")
+	public Iterable<Produto> ListarProduto() {
+		return produtorepository.findAll();
 	}
 		
-	/*COM MAIS CÓDIGOS
-	  @PostMapping("/novo")
-	public Produto novoProduto(@RequestParam String nome, 
-								@RequestParam Double preco, 
-								@RequestParam Double desconto,
-								@RequestParam int quantidade
-			) {
+	/*
+	@PostMapping("/novo")
+	public Produto novoProduto(@RequestParam String nome, RequestParam Double preco, 
+								@RequestParam Double desconto,@RequestParam int quantidade) {		
 		Produto produto = new Produto(nome,preco,desconto,quantidade);
 		produtorepository.save(produto);
 		return produto;
 	}*/
-	
-	/*@GetMapping("/todos")
-	public ResponseEntity<List<Produto>> ListaProduto() {
-		List<Produto> produtosList = produtorepository.findAll();
-		return ResponseEntity.ok().body(produtosList);
-		
-		//return ListaProduto();
-	}*/
-	
 	
 }

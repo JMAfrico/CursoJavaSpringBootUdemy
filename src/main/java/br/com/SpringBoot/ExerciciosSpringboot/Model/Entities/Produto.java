@@ -34,8 +34,8 @@ public class Produto {
 	
 	
 	@Column(name = "quantidade")
-	@Min(0)
-	private int quantidade;
+	@Min(1)
+	private Integer quantidade;
 	
 	/*@Column(name = "valor_total")
 	private Double total;*/
@@ -44,7 +44,7 @@ public class Produto {
 		
 	}
 	
-	public Produto(String nome, Double preco, Double desconto, int quantidade) {
+	public Produto(String nome, Double preco, Double desconto, Integer quantidade) {
 		super();		
 		setNome(nome);
 		setPreco(preco);
@@ -86,11 +86,11 @@ public class Produto {
 		this.desconto = desconto;		
 	}
 
-	public int getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 
