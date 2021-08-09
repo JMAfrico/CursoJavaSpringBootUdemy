@@ -5,7 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Max;
 
 @Entity
 public class Produto {
@@ -14,29 +16,41 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	
 	@Column(name = "nome_produto")
+	@NotBlank
 	private String nome;
 	
+	
 	@Column(name = "preco_produto")
+	@Min(0)
 	private Double preco;
 	
+
 	@Column(name = "desconto_produto")
+	@Min(0)
+	@Max(1)
 	private Double desconto;
 	
-	@Column(name = "valor_total")
-	private Double total;
+	
+	@Column(name = "quantidade")
+	@Min(0)
+	private int quantidade;
+	
+	/*@Column(name = "valor_total")
+	private Double total;*/
 	
 	public Produto() {
 		
 	}
 	
-	public Produto(String nome, Double preco, Double desconto) {
+	public Produto(String nome, Double preco, Double desconto, int quantidade) {
 		super();		
 		setNome(nome);
-		setDesconto(desconto);
 		setPreco(preco);
-		setTotal(total);
-		
+		setDesconto(desconto);
+		setQuantidade(quantidade);
+		//setTotal(getTotal());
 	}
 
 	public Integer getId() {
@@ -60,7 +74,7 @@ public class Produto {
 	}
 
 	public void setPreco(Double preco) {
-			this.preco = preco;
+		this.preco = preco;
 		
 	}
 
@@ -69,20 +83,28 @@ public class Produto {
 	}
 
 	public void setDesconto(Double desconto) {
-			this.desconto = desconto;
-		
+		this.desconto = desconto;		
 	}
 
-	public Double getTotal() {
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	/*public Double getTotal() {
 		return total;
 	}
 
 	public void setTotal(Double total) {
 		//PREÇO COMUM = this.total = total ;
-		//PREÇO COM DESCONTO = total = preco - (preco * desconto); 		
-		total = preco - (preco * desconto);
+		//PREÇO COM DESCONTO = total = preco - (preco * desconto);
+		double q = (double) quantidade; // Cast na quantidade para poder multiplicar pelo preco(double x double)
+		total = (preco - (preco * desconto))*q;
 		this.total = total ;
-	}
+	}*/
 
 	@Override
 	public int hashCode() {
@@ -108,10 +130,5 @@ public class Produto {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
 	
 }
