@@ -1,12 +1,17 @@
 package br.com.SpringBoot.ExerciciosSpringboot.Controllers;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,20 +26,16 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoRepository produtorepository;
 	
-	//salvando no banco com menos códigos
-	@PostMapping("/novo")
-	public @ResponseBody Produto novoProduto(@Valid Produto produto) {		
-		produtorepository.save(produto);
-		return produto;
-	}
+	//---------SALVANDO NO BANCO--------------//
 	
-	//Lista todos os produtos
-	@GetMapping("/listar")
-	public Iterable<Produto> ListarProduto() {
-		return produtorepository.findAll();
-	}
-		
-	/*
+	//TIPO 1//
+//	@PostMapping("/novo")
+//	public @ResponseBody Produto novoProduto(@Valid Produto produto) {		
+//		produtorepository.save(produto);
+//		return produto;
+//	}
+	
+	/*//TIPO 2//
 	@PostMapping("/novo")
 	public Produto novoProduto(@RequestParam String nome, RequestParam Double preco, 
 								@RequestParam Double desconto,@RequestParam int quantidade) {		
@@ -43,4 +44,57 @@ public class ProdutoController {
 		return produto;
 	}*/
 	
+	
+	//---------LISTANDO TODOS OS PRODUTOS--------------//
+	
+	@GetMapping("/listar")
+	public Iterable<Produto> ListarProduto() {
+		return produtorepository.findAll();
+	}
+	
+	//---------LISTANDO PRODUTOS POR ID--------------//
+	
+	
+	//TIPO 1//
+	//http://localhost:8080/api/produtos/5
+	@GetMapping(path="/{id}")
+	public Optional<Produto> ListarPorId(@PathVariable int id){
+		return produtorepository.findById(id);
+	}
+	
+	//TIPO 2//
+	//http://localhost:8080/api/produtos?id=3
+	@GetMapping()
+	public Optional<Produto> ListarId(@RequestParam(name = "id") int id){
+		return produtorepository.findById(id);
+	}
+
+	
+	//---------ALTERANDO PRODUTOS--------------//
+	
+	//TIPO 1//
+	//http://localhost:8080/api/produtos
+//	@PutMapping()
+//	public @ResponseBody Produto alterarProduto(@Valid Produto produto) {		
+//		produtorepository.save(produto);
+//		return produto;
+//	}
+	
+	//TIPO 2// - JUNTAR O MÉTODO POST + PUT EM UM MÉTODO
+	//QUANDO A REQUISIÇÃO FOR SEM ID,SALVA NOVO ,TANTO USANDO POST QUANTO PUT
+	//QUANDO A REQUISIÇÃO FOR COM ID,ALTERA POR ID,TANTO USANDO POST QUANTO PUT
+	@RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT})
+	public @ResponseBody Produto salvarProduto(@Valid Produto produto) {		
+		produtorepository.save(produto);
+		return produto;
+	}
+	
+	//---------DELETANDO PRODUTOS--------------//
+	
+	//TIPO 1- DELETANDO POR ID//
+	@DeleteMapping(path = "/{id}")
+	public void excluirProduto(@PathVariable int id) {
+		produtorepository.deleteById(id);
+		
+	}
 }
