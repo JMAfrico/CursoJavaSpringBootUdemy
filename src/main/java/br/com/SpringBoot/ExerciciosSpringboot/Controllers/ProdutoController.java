@@ -79,6 +79,13 @@ public class ProdutoController {
 		return produtorepository.findById(id);
 	}
 
+	//---------LISTANDO PRODUTOS POR NOME--------------//
+	
+	@GetMapping(path = "/pesquisa/{nome}")
+	public Iterable<Produto> ListarProdutoPorNome(@PathVariable String nome) {
+		return produtorepository.findByNomeContainingIgnoreCase(nome);
+		//return produtorepository.searchByNameLike(nome);
+	}
 	
 	//---------ALTERANDO PRODUTOS--------------//
 	
