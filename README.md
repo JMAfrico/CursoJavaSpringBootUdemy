@@ -1,3 +1,4 @@
-## Curso Udemy Cod3r- Módulo Spring Boot 
-###Utilizando maven como gerenciador de dependências
+## Curso Spring boot
+Aulas Curso Java Spring boot, por Leonardo Moura Leitão, Equipe cod3r
+
 
